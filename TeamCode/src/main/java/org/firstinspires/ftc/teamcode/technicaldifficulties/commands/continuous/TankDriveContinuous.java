@@ -1,19 +1,19 @@
-package org.firstinspires.ftc.teamcode.technicaldifficulties.opmodes.commands;
+package org.firstinspires.ftc.teamcode.technicaldifficulties.commands.continuous;
 
 import com.disnodeteam.dogecommander.Command;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.technicaldifficulties.opmodes.subsystems.DriveBase;
+import org.firstinspires.ftc.teamcode.technicaldifficulties.subsystems.DriveBase;
 
 /**
  * Created by Admin on 1/3/2020.
  */
-public class TankDrive implements Command {
+public class TankDriveContinuous implements Command {
 
     private DriveBase driveBase;
     private Gamepad driveGamePad;
 
-    public TankDrive(DriveBase driveBase, Gamepad driveGamePad) {
+    public TankDriveContinuous(DriveBase driveBase, Gamepad driveGamePad) {
         this.driveBase = driveBase;
         this.driveGamePad = driveGamePad;
     }
@@ -40,13 +40,13 @@ public class TankDrive implements Command {
 
 
     private double[] calculatePowersFromJoysticks(float driveX, float driveY, float rot) {
-        double hypot = Math.hypot(driveX, driveY);
-        double desiredAngle = Math.atan2(driveY, driveX) - Math.PI / 4;
+        double hypot = Math.hypot(-driveX, driveY);
+        double desiredAngle = Math.atan2(driveY, -driveX) - Math.PI / 4;
         return new double[] {
-                hypot * Math.cos(desiredAngle) + rot,
-                hypot * Math.sin(desiredAngle) - rot,
+                hypot * Math.cos(desiredAngle) - rot,
                 hypot * Math.sin(desiredAngle) + rot,
-                hypot * Math.cos(desiredAngle) - rot
+                hypot * Math.sin(desiredAngle) - rot,
+                hypot * Math.cos(desiredAngle) + rot
         };
     }
 }
